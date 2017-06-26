@@ -12,7 +12,7 @@ public class TXTLoader extends FileLoader {
 
 	public TXTLoader(File source) {
 		this.source = source;
-		this.list = new ArrayList<Implication>();
+		this.rules = new ArrayList<Implication>();
 		init();
 	}
 

@@ -5,5 +5,5 @@ import java.io.File;
 public abstract class FileLoader extends RuleLoader {
 
 	protected File source;
-	
+
 }
