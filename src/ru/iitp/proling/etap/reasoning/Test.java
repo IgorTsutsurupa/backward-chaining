@@ -10,7 +10,7 @@ public class Test {
 
 	public static void main(String[] args) {
 		RuleStorage rules = new RuleStorage(new TXTLoader(new File("test_rules")));
-		List<Conjunction> list = BackChain.getRewritings(Conjunction.parse("man(?x)"), rules);
+		List<Conjunction> list = BackChain.getRewritings(Conjunction.parse("uncle(?x, ?y)"), rules);
 		System.out.println(list);
 	}
 

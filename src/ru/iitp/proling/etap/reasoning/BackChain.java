@@ -7,7 +7,6 @@ import java.util.Queue;
 
 import ru.iitp.proling.etap.reasoning.util.RuleStorage;
 
-// Главный класс, который занимается переписыванием запросов
 public class BackChain {
 
 	public static List<Conjunction> getRewritings(Conjunction query, RuleStorage rules) {
@@ -37,20 +36,20 @@ public class BackChain {
 				boolean include = false;
 				Conjunction t = r.getBody();
 				for (Conjunction c : result) {
-					include = !c.check(t);
+					if (c.check(t)) {
+						include = true;
+						break;
+					}
 				}
-				if (include) {
+				if (!include) {
 					result.add(t);
 
 					// Добавим в очередь конъюнкты из левой части нужного
 					// правила
 					queue.addAll(t.getAtoms());
-
 				}
-
 			}
 		}
-
 		return result;
 	}
 
