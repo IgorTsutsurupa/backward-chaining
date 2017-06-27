@@ -1,7 +1,5 @@
 package ru.iitp.proling.etap.reasoning;
 
-import java.util.Objects;
-
 // Терм - общий класс для переменных, констант и литералов
 public class Term {
 
@@ -32,7 +30,7 @@ public class Term {
 		if (!(other instanceof Term))
 			return false;
 
-		return Objects.equals(this.name, ((Term) other).name);
+		return name.equals(((Term) other).name);
 	}
 
 	// Хэш для хранения в HashSet. Равен хэшу имени.

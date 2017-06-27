@@ -60,14 +60,13 @@ public class Atom extends Proposition {
 	public boolean isUnary() {
 		return object == null;
 	}
-
-	// Возвращает текстовое представление объекта
-	@Override
-	public String toString() {
-		if (isUnary())
-			return getPredicate() + "(" + getSubject() + ")";
-		else
-			return getPredicate() + "(" + getSubject() + ", " + getObject() + ")";
+	
+	public boolean equivalent(Atom atom) {
+		return getPredicate().equals(atom.getPredicate());
+	}
+	
+	public boolean similar(Atom atom) {
+		return equivalent(atom) && getSubject().equals(atom.getSubject());
 	}
 
 	// Сравнивает два атома
@@ -80,9 +79,18 @@ public class Atom extends Proposition {
 
 		Atom otherAtom = (Atom) other;
 
-		return Objects.equals(getPredicate(), otherAtom.getPredicate())
-				&& Objects.equals(getSubject(), otherAtom.getSubject())
-				&& Objects.equals(getObject(), otherAtom.getObject());
+		return getPredicate().equals(otherAtom.getPredicate())
+				&& getSubject().equals(otherAtom.getSubject())
+				&& getObject().equals(otherAtom.getObject());
+	}
+	
+	// Возвращает текстовое представление объекта
+	@Override
+	public String toString() {
+		if (isUnary())
+			return getPredicate() + "(" + getSubject() + ")";
+		else
+			return getPredicate() + "(" + getSubject() + ", " + getObject() + ")";
 	}
 
 	// Хэш для хранения в LinkedHashSet. Зависит от всех трёх полей.
