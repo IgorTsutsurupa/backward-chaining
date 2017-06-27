@@ -3,7 +3,7 @@ package ru.iitp.proling.etap.reasoning.util;
 import java.util.List;
 
 import ru.iitp.proling.etap.reasoning.Conjunction;
-import ru.iitp.proling.etap.reasoning.Implication;
+import ru.iitp.proling.etap.reasoning.Rule;
 
 public class RuleStorage {
 
@@ -13,17 +13,12 @@ public class RuleStorage {
 		this.loader = loader;
 	}
 
-	public List<Implication> getAllRules() {
+	public List<Rule> getAllRules() {
 		return loader.getRules();
 	}
 
-	/**
-	 * c -- правая часть возвращаемых правил
-	 * 
-	 * @param c
-	 * @return
-	 */
-	public List<Implication> searchRules(Conjunction c) {
+	// с -- правая часть возвращаемых правил
+	public List<Rule> searchRules(Conjunction c) {
 		return loader.searchRules(c);
 	}
 }

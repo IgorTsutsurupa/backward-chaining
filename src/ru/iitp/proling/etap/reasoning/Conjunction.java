@@ -18,7 +18,7 @@ public class Conjunction extends Proposition {
 	public Conjunction() {
 		atoms = new LinkedHashSet<Atom>();
 	}
-	
+
 	public Conjunction(Atom atom) {
 		this();
 		addAtom(atom);
@@ -56,13 +56,14 @@ public class Conjunction extends Proposition {
 	}
 
 	@Override
-	public boolean equals(Object c) {
-		if (!(c instanceof Conjunction)) {
+	public boolean equals(Object o) {
+		if (!(o instanceof Conjunction)) {
 			return false;
 		}
-		return this.getAtoms().equals(((Conjunction) c).getAtoms());
+		Conjunction c = (Conjunction) o;
+		return getAtoms().equals(c.getAtoms());
 	}
-	
+
 	public Conjunction merge(Conjunction c) {
 		Conjunction result = new Conjunction();
 		for (Atom atom : atoms) {
@@ -98,5 +99,17 @@ public class Conjunction extends Proposition {
 
 		return newConjunction;
 
+	}
+
+	// Возвращает true, если конъюнкции содержат хотя бы один одинаковый атом
+	public boolean check(Conjunction c) {
+		for (Atom a : c.getAtoms()) {
+			for (Atom b : getAtoms()) {
+				if (b.equivalent(a)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

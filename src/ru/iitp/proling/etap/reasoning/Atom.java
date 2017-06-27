@@ -9,6 +9,7 @@ import java.util.Objects;
 // Имеем трёхместный предикат, означающий "?а между ?b и ?c": between(?a, ?b, ?c)
 // Его можно представить так: Between(?p) & hasFirst(?p, ?a) & hasSecond(?p, ?b) & hasThirs(?p, ?c)
 public class Atom extends Proposition {
+
 	// Имя предиката
 	// Например, "parent" для атома parent(?x, ?y))
 	protected String predicate;
@@ -60,11 +61,14 @@ public class Atom extends Proposition {
 	public boolean isUnary() {
 		return object == null;
 	}
-	
+
+	// Предикаты P(a,b) и P(c,d) будем называть эквивалентными
 	public boolean equivalent(Atom atom) {
 		return getPredicate().equals(atom.getPredicate());
 	}
-	
+
+	// Предикаты P(a,b) и P(a,c) будем называть одинаковыми:
+	// они отражают одну и ту же информацию о терме a
 	public boolean similar(Atom atom) {
 		return equivalent(atom) && getSubject().equals(atom.getSubject());
 	}
@@ -79,11 +83,11 @@ public class Atom extends Proposition {
 
 		Atom otherAtom = (Atom) other;
 
-		return getPredicate().equals(otherAtom.getPredicate())
-				&& getSubject().equals(otherAtom.getSubject())
-				&& getObject().equals(otherAtom.getObject());
+		return Objects.equals(getPredicate(), otherAtom.getPredicate())
+				&& Objects.equals(getSubject(), otherAtom.getSubject())
+				&& Objects.equals(getObject(), otherAtom.getObject());
 	}
-	
+
 	// Возвращает текстовое представление объекта
 	@Override
 	public String toString() {
@@ -129,4 +133,5 @@ public class Atom extends Proposition {
 
 		return new Atom(getPredicate(), newSubject, newObject);
 	}
+
 }

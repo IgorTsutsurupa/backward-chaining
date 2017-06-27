@@ -4,25 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.iitp.proling.etap.reasoning.Conjunction;
-import ru.iitp.proling.etap.reasoning.Implication;
+import ru.iitp.proling.etap.reasoning.Rule;
 
 public abstract class RuleLoader {
 
-	protected List<Implication> rules;
+	protected List<Rule> rules;
 
-	protected List<Implication> getRules() {
+	protected List<Rule> getRules() {
 		return rules;
 	}
 
-	protected void addRule(Implication e) {
-		rules.add(e);
+	protected void addRule(Rule r) {
+		rules.add(r);
 	}
 
-	public List<Implication> searchRules(Conjunction c) {
-		List<Implication> result = new ArrayList<Implication>();
-		for (Implication e : rules) {
-			if (e.getHead().equals(c)) {
-				result.add(e);
+	public List<Rule> searchRules(Conjunction c) {
+		List<Rule> result = new ArrayList<Rule>();
+		for (Rule r : rules) {
+			Conjunction t = r.getHead();
+			if (t.equals(c)) {
+				result.add(r);
 			}
 		}
 		return result;

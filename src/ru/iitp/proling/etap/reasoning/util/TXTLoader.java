@@ -7,12 +7,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import ru.iitp.proling.etap.reasoning.Implication;
+import ru.iitp.proling.etap.reasoning.Rule;
 
 public class TXTLoader extends FileLoader {
 
 	public TXTLoader(File source) {
 		this.source = source;
-		this.rules = new ArrayList<Implication>();
+		this.rules = new ArrayList<Rule>();
 		init();
 	}
 
@@ -21,7 +22,10 @@ public class TXTLoader extends FileLoader {
 			BufferedReader bf = new BufferedReader(new FileReader(source));
 			String s;
 			while ((s = bf.readLine()) != null) {
-				addRule(Implication.parse(s));
+				Implication im = Implication.parse(s);
+				for (Rule r : Rule.rulify(im)) {
+					addRule(r);
+				}
 			}
 			bf.close();
 		} catch (IOException e) {

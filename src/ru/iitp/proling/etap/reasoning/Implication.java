@@ -53,4 +53,5 @@ public class Implication extends Proposition {
 
 		return new Implication(newBody, newHead);
 	}
+
 }

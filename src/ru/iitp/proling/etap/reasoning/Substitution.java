@@ -2,7 +2,6 @@ package ru.iitp.proling.etap.reasoning;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 // Класс хранит список замен переменных
 // Например, ?x -> ?a, ?y -> ?b и т.п.
@@ -22,10 +21,11 @@ public class Substitution {
 	// Устанавливает мэппинг для переменной, или удаляет его если задан мэппинг
 	// на саму себя
 	public void setMapping(Variable variable, Term term) {
-		if (Objects.equals(variable, term))
+		if (variable.equals(term)) {
 			map.remove(variable);
-		else
+		} else {
 			map.put(variable, term);
+		}
 	}
 
 	// Возвращает все мэппинги
@@ -37,14 +37,33 @@ public class Substitution {
 	public Term getMapping(Variable variable) {
 		Term term = map.get(variable);
 
-		if (term == null)
+		if (term == null) {
 			return variable;
-		else
+		} else {
 			return term;
+		}
 	}
 
 	// Проверяет, есть ли мэппинг для заданной переменной
 	public boolean hasMapping(Variable variable) {
 		return map.containsKey(variable);
+	}
+
+	// Сравнивает два атома и возвращает замену, если они эквиваленты
+	// Возможно, вместо return null стоит бросать исключения
+	public static Substitution compare(Atom a, Atom b) {
+		if (!a.equivalent(b)) {
+			return null;
+		}
+		if (!(a.object instanceof Variable)) {
+			return null;
+		}
+		if (!(a.subject instanceof Variable)) {
+			return null;
+		}
+		Substitution result = new Substitution();
+		result.setMapping((Variable) a.getObject(), b.getObject());
+		result.setMapping((Variable) a.getSubject(), b.getSubject());
+		return result;
 	}
 }
