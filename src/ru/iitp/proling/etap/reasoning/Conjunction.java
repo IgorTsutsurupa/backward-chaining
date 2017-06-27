@@ -5,6 +5,7 @@ import java.util.LinkedHashSet;
 
 // Конъюнкция (атомов)
 public class Conjunction extends Proposition {
+
 	// Множество атомов
 	// Поскольку два одинаковых атома хранить в конъюнкции смысла нет,
 	// используется Set, а не List.
@@ -23,6 +24,11 @@ public class Conjunction extends Proposition {
 		this();
 		addAtom(atom);
 	}
+	
+	public Conjunction(HashSet<Atom> atoms) {
+		this();
+		addAtoms(atoms);
+	}
 
 	// Возвращает множество атомов.
 	public HashSet<Atom> getAtoms() {
@@ -36,9 +42,10 @@ public class Conjunction extends Proposition {
 	}
 
 	// Добавляет множество атомов в конъюнкцию
-	public void addAtoms(LinkedHashSet<Atom> atoms) {
-		for (Atom atom : atoms)
+	public void addAtoms(HashSet<Atom> atoms) {
+		for (Atom atom : atoms) {
 			addAtom(atom);
+		}
 	}
 
 	// Возвращает текстовое представление объекта
@@ -112,4 +119,5 @@ public class Conjunction extends Proposition {
 		}
 		return false;
 	}
+
 }
