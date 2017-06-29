@@ -21,9 +21,9 @@ public class BackChain {
 
 			// положим все атомы, входящие в конъюнкцию currentEntry
 			// во временную очередь
-			Queue<Conjunction> entryAtoms = new LinkedList<Conjunction>();
+			Queue<Atom> entryAtoms = new LinkedList<Atom>();
 			for (Atom currentAtom : currentEntry.getAtoms()) {
-				entryAtoms.add(new Conjunction(currentAtom));
+				entryAtoms.add(currentAtom);
 			}
 
 			// для каждого атома в очереди будем искать правила, в которые
@@ -31,13 +31,14 @@ public class BackChain {
 			// в конъюнкции currentEntry на левые части этих правил и записывать
 			// новую конъюнкцию в результат result
 			while (!entryAtoms.isEmpty()) {
-				Conjunction atom = entryAtoms.poll();
-				List<Rule> wantedRules = rules.searchRules(atom);
+				Atom atom = entryAtoms.poll();
+				List<Rule> wantedRules = rules.searchRules(new Conjunction(atom));
 
 				for (Rule rule : wantedRules) {
 					HashSet<Atom> atomSet = currentEntry.getAtoms();
-					atomSet.remove(atom); // атом почему-то не удаляется
+					atomSet.remove(atom);
 					Conjunction rewriting = new Conjunction(atomSet).merge(rule.getBody());
+					
 					result.add(rewriting);
 					mainQueue.add(rewriting);
 				}

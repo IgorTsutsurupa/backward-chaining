@@ -32,7 +32,7 @@ public class Conjunction extends Proposition {
 
 	// Возвращает множество атомов.
 	public HashSet<Atom> getAtoms() {
-		return atoms;
+		return new HashSet<Atom>(atoms);
 	}
 
 	// Добавляет атом в конъюнкцию
